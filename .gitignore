@@ -1,4 +1,7 @@
 *.iml
 example.json
 *.idea
-__*
+__pycache__
+.cache
+*.pyc
+

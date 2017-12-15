@@ -24,11 +24,11 @@ def root_post():
 
     if graph is None:
         return jsonify(responseInvalidInputError)
-    if not (start in graph.nodes and end in graph.nodes):
+    if not (start in graph.nodes and end in graph.nodes):  # check that start and end are valid rooms
         return jsonify(responseInvalidInputError)
 
     try:
-        solution = nx.shortest_path(graph, source=start, target=end)
+        solution = nx.shortest_path(graph, source=start, target=end)  # find shortest path from start to end
         return jsonify(create_response(solution))
     except nx.NetworkXNoPath:
         return jsonify(responseNoSolutionFound)
@@ -36,9 +36,13 @@ def root_post():
 
 def create_graph(rooms, corridors):
     graph = nx.Graph()
-    graph.add_nodes_from(rooms)
+    for room in rooms:
+        if room in graph.nodes:  # checking duplicates
+            return None
+        graph.add_node(room)
+
     for corridor in corridors:
-        if not (corridor[0] in graph.nodes and corridor[1] in graph.nodes):
+        if not (corridor[0] in graph.nodes and corridor[1] in graph.nodes):  # check that both ends of edge exists
             return None
 
     graph.add_edges_from(corridors)
