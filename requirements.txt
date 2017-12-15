@@ -1,3 +1,4 @@
 Flask>=0.12
 pytest>=3.2.3
 requests
+networkx
