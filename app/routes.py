@@ -1,3 +1,4 @@
+# author: Ondrej Benkovsky (422583)
 from flask import request, jsonify
 import networkx as nx
 
